@@ -1,9 +1,9 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim
 
 # Install Visual Studio Snapshot Debugger prerequisites
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        curl libxml2 uuid libunwind8
+        curl libunwind8
 
 # Install Visual Studio Snapshot Debugger
 ARG VSSNAPSHOTDEBUGGER_VERSION=2.0.21
@@ -26,7 +26,7 @@ ENV MicrosoftProductionDiagnostics_UtilsPath=/diag/Utils/ProductionBreakpointsUt
 
 # Install Visual Studio Debugger script prerequisites
 RUN apt-get install -y --no-install-recommends \
-    unzip
+        unzip
 
 # Install Visual Studio Debugger
 # Check the repo's README for version compatibility with Visual Studio

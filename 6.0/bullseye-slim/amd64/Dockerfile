@@ -1,9 +1,9 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-bionic
+FROM mcr.microsoft.com/dotnet/core/aspnet:6.0-bullseye-slim
 
 # Install Visual Studio Snapshot Debugger prerequisites
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        curl libxml2 uuid libunwind8
+        curl libxml2
 
 # Install Visual Studio Snapshot Debugger
 ARG VSSNAPSHOTDEBUGGER_VERSION=2.0.21

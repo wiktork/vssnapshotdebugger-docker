@@ -1,13 +1,14 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine3.8
+FROM mcr.microsoft.com/dotnet/core/aspnet:6.0-focal
 
 # Install Visual Studio Snapshot Debugger prerequisites
-RUN apk update \
-    && apk add libxml2 libuuid libunwind
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        curl libxml2
 
 # Install Visual Studio Snapshot Debugger
 ARG VSSNAPSHOTDEBUGGER_VERSION=2.0.21
-ARG VSSNAPSHOTDEBUGGER_SHA512=d1545d8683ddb57c130a4dbf481859df53d081bbe6112b5a306abc15913823157942efcf02903367f110e59d7535c5738193691b268968faeff3bc0aa7af4ce7
-RUN wget -O vssnapshotdebugger.tar.gz "https://aka.ms/vssnapshotdebugger/release/${VSSNAPSHOTDEBUGGER_VERSION}/vssnapshotdebugger-${VSSNAPSHOTDEBUGGER_VERSION}-linux-musl-x64.tar.gz" \
+ARG VSSNAPSHOTDEBUGGER_SHA512=bf362fda48ba361ae908f8561fb53c89b89b478c8aee113b1756e2d2f159c1a5e83eb4a076b54c6957039ad907a56fa37326f368e8fdabf6498defe954eb9bba
+RUN curl -SL --output vssnapshotdebugger.tar.gz "https://aka.ms/vssnapshotdebugger/release/${VSSNAPSHOTDEBUGGER_VERSION}/vssnapshotdebugger-${VSSNAPSHOTDEBUGGER_VERSION}-linux-x64.tar.gz" \
     && echo "${VSSNAPSHOTDEBUGGER_SHA512}  vssnapshotdebugger.tar.gz" | sha512sum -c - \
     && mkdir -p /diag \
     && mkdir -p /tmp/diag \
@@ -24,10 +25,14 @@ ENV MicrosoftProductionDiagnostics_RuntimeFolder=/diag/Runtime
 ENV MicrosoftProductionDiagnostics_UtilsPath=/diag/Utils/ProductionBreakpointsUtils.dll
 
 # Install Visual Studio Debugger script prerequisites
-RUN apk add unzip
+RUN apt-get install -y --no-install-recommends \
+        unzip
 
 # Install Visual Studio Debugger
-# Check the repo's README for vsdbg version compatibility with Visual Studio
-RUN wget -O getvsdbg.sh "https://aka.ms/getvsdbgsh" \
+# Check the repo's README for version compatibility with Visual Studio
+RUN curl -SL --output getvsdbg.sh "https://aka.ms/getvsdbgsh" \
     && sh ./getvsdbg.sh -v vs2019 -l /diag/vsdbg \
     && rm getvsdbg.sh
+
+# Remove package lists to save space; can be restored with 'apt-get update'
+RUN rm -rf /var/lib/apt/lists/*
