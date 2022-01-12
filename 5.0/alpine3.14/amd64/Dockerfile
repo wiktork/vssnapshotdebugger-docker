@@ -18,6 +18,7 @@ RUN wget -O vssnapshotdebugger.tar.gz "https://aka.ms/vssnapshotdebugger/release
 ENV CORECLR_ENABLE_PROFILING=1
 ENV CORECLR_PROFILER={324F817A-7420-4E6D-B3C1-143FBED6D855}
 ENV CORECLR_PROFILER_PATH_64=/diag/Instrumentation64/libInstrumentationEngine.so
+ENV MicrosoftInstrumentationEngine_ConfigPath64_SnapshotDebugger=/diag/Instrumentation64/ProductionBreakpoints_x64.config
 ENV MicrosoftInstrumentationEngine_FileLog=Errors
 ENV MicrosoftInstrumentationEngine_FileLogPath=/tmp/diag/log.txt
 ENV MicrosoftProductionDiagnostics_RuntimeFolder=/diag/Runtime
