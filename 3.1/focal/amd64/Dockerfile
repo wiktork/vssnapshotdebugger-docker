@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:3.1-focal
 # Install Visual Studio Snapshot Debugger prerequisites
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        curl libxml2
+        curl libxml2 libunwind8
 
 # Install Visual Studio Snapshot Debugger
 ARG VSSNAPSHOTDEBUGGER_VERSION=2.0.21

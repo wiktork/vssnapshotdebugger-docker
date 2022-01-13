@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0-bullseye-slim
 # Install Visual Studio Snapshot Debugger prerequisites
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        curl libxml2
+        curl libxml2 libunwind8
 
 # Install Visual Studio Snapshot Debugger
 ARG VSSNAPSHOTDEBUGGER_VERSION=2.0.21
