@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-bullseye-slim
+FROM mcr.microsoft.com/dotnet/aspnet:3.1-bullseye-slim
 
 # Install Visual Studio Snapshot Debugger prerequisites
 RUN apt-get update \

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:5.0-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
 
 # Install Visual Studio Snapshot Debugger prerequisites
 RUN apk update \
